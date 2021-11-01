@@ -7,4 +7,19 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dark_gray">#202020</color>
+    <color name="medium_gray">#505050</color>
+
+
+    <color name="splash_screen_bg">#FF6200EE</color>
+    <color name="login_color">#009dff</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#20E428</color>
+
+
+    <color name="color_primary_text">#222934</color>
+    <color name="color_second_text">#989898</color>
+
+    <color name="color_theme_orange">#F4442d</color>
+    <color name="color_theme_pink">#ED2173</color>
 </resources>

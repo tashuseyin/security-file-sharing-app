@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">encrypted image sharing app</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="don_t_have_a_account">Don\'t have a account?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="image">image</string>
+    <string name="create_account">Create Account</string>
+    <string name="i_agree_with_the_terms_of_service_privacy_policy"><![CDATA[I agree with the Terms of service & privacy policy.]]></string>
+    <string name="register">REGISTER</string>
+    <string name="already_have_account">Already have account?</string>
+    <string name="login">Login</string>
+    <string name="please_wait">Please Wait</string>
 </resources>
