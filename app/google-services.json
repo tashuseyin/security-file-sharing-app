@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1034572023652",
+    "project_id": "encryptedimagesharingapp",
+    "storage_bucket": "encryptedimagesharingapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1034572023652:android:58a5e3590c4297a8311c71",
+        "android_client_info": {
+          "package_name": "com.example.encryptedimagesharingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1034572023652-pu6plpur2ivf9a2bh3f9nkh7nh3rjivc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.encryptedimagesharingapp",
+            "certificate_hash": "93b19ed67fff440356f1b30b0d680049acc99363"
+          }
+        },
+        {
+          "client_id": "1034572023652-frfflgqmhe42v59hfcv2nqunjnlpt13h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdWIODIbirXV2QEOXK5CzJT6BGYaSLTco"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1034572023652-frfflgqmhe42v59hfcv2nqunjnlpt13h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

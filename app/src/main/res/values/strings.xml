@@ -14,4 +14,22 @@
     <string name="already_have_account">Already have account?</string>
     <string name="login">Login</string>
     <string name="please_wait">Please Wait</string>
+
+    <string name="error_message_name">Please enter name.</string>
+    <string name="error_message_phone_number">Please enter phone number.</string>
+    <string name="error_message_email">Please enter email.</string>
+    <string name="error_message_password">Please enter password.</string>
+    <string name="error_message_confirm_password">Please enter confirm password.</string>
+    <string name="error_message_confirm_password_mismatch">Password and confirm password does not matched.</string>
+    <string name="error_message_agree_policy">Please agree terms and condition.</string>
+    <string name="register_successful">You are registered successfully.</string>
+    <string name="forgot_password_text">Enter your registered email below to receive \npassword reset instruction</string>
+    <string name="send">Send</string>
+    <string name="email_sent_success">Email sent successfully to reset your password</string>
+    <string name="message_profile_update_successs">Your profile is updated successfully.</string>
+    <string name="complete_profile">COMPLETE\t PROFILE</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="save">SAVE</string>
+    <string name="image_selection_failed">Image selection failed.</string>
+    <string name="read_storage_permission_denied">Oops, you just denied the permission for storage. You can also allow it from settings.</string>
 </resources>
