@@ -22,4 +22,5 @@
 
     <color name="color_theme_orange">#F4442d</color>
     <color name="color_theme_pink">#ED2173</color>
+    <color name="yellow">#FAE000</color>
 </resources>

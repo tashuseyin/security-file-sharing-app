@@ -66,4 +66,6 @@ dependencies {
     // Firebase Auth
     implementation 'com.google.firebase:firebase-auth-ktx'
 
+    implementation 'com.github.st235:expandablebottombar:1.4.0'
+
 }
