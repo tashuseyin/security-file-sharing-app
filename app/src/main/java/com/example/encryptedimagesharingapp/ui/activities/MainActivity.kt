@@ -1,11 +1,13 @@
 package com.example.encryptedimagesharingapp.ui.activities
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.ActivityMainBinding
+import com.example.encryptedimagesharingapp.ui.fragment.HomeFragment
+import com.example.encryptedimagesharingapp.ui.fragment.SettingsFragment
+import com.example.encryptedimagesharingapp.ui.fragment.UserListFragment
 import github.com.st235.lib_expandablebottombar.ExpandableBottomBar
 import github.com.st235.lib_expandablebottombar.MenuItemDescriptor
 
@@ -23,7 +25,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    @SuppressLint("ResourceAsColor")
     private fun bottomMenu() {
         val bottomBar: ExpandableBottomBar = binding.expandableBottomBar
         val menu = bottomBar.menu
@@ -58,6 +59,28 @@ class MainActivity : AppCompatActivity() {
                 .build()
         )
 
+        bottomBar.onItemSelectedListener = { _, menuItem, _ ->
+            when (menuItem.id) {
+                R.id.home -> {
+                    val homeFragment = HomeFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment, homeFragment)
+                        .commit()
+                }
+                R.id.users -> {
+                    val userListFragment = UserListFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment, userListFragment)
+                        .commit()
+                }
+                R.id.settings -> {
+                    val settingsFragment = SettingsFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment, settingsFragment)
+                        .commit()
+                }
+            }
+        }
     }
 }
 
