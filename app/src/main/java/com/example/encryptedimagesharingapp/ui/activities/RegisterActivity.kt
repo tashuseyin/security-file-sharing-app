@@ -6,9 +6,12 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.ActivityRegisterBinding
+import com.example.encryptedimagesharingapp.model.entities.User
+import com.example.encryptedimagesharingapp.model.firestore.FireStore
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -18,10 +21,10 @@ import kotlinx.coroutines.launch
 class RegisterActivity : BaseActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.Theme_EncryptedImageSharingApp)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -56,7 +59,15 @@ class RegisterActivity : BaseActivity() {
                     hideDialog()
                     if (task.isSuccessful) {
                         val currentUser = auth.currentUser
-                        auth.signOut()
+                        currentUser?.let { firebaseCurrentUser ->
+                            user = User(
+                                firebaseCurrentUser.uid,
+                                binding.name.text.toString().trim { it <= ' ' },
+                                binding.email.text.toString().trim { it <= ' ' }
+                            )
+                        }
+                        FireStore().registerUser(this@RegisterActivity, user)
+
                         lifecycleScope.launch {
                             delay(2000)
                             startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
@@ -71,6 +82,10 @@ class RegisterActivity : BaseActivity() {
         }
     }
 
+    fun userRegistrationSuccess() {
+        hideDialog()
+        Toast.makeText(this, getString(R.string.register_successful), Toast.LENGTH_SHORT).show()
+    }
 
     private fun validationRegister(): Boolean {
         return when {

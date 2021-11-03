@@ -9,7 +9,9 @@
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.3880208333333333" />
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/drawable/ic_baseline_login_24.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/drawable/ic_baseline_person_search_24.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/drawable/ic_filetransfer.xml" value="0.3880208333333333" />
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/drawable/login_register_bg.xml" value="0.26296296296296295" />
@@ -20,12 +22,13 @@
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/layout/activity_login.xml" value="0.371875" />
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/layout/activity_register.xml" value="0.371875" />
+        <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/layout/activity_splash.xml" value="0.22" />
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/layout/activity_splash_screen.xml" value="0.3578125" />
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/layout/activity_user_profile.xml" value="0.18211752786220872" />
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/layout/dialog.xml" value="0.371875" />
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/layout/fragment_home.xml" value="0.18085106382978725" />
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/layout/fragment_settings.xml" value="0.18085106382978725" />
-        <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/layout/fragment_user_list.xml" value="0.18085106382978725" />
+        <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/layout/fragment_user_list.xml" value="0.25" />
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/layout/user_item.xml" value="0.371875" />
         <entry key="..\:/Users/Monster/AndroidStudioProjects/encryptedimagesharingapp/app/src/main/res/menu/menu.xml" value="0.371875" />
       </map>
