@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         return sharedPreferences.getString("logged_in_username", " ")!!
     }
 
-    private fun getUserDetails(): User {
+    fun getUserDetails(): User {
         if (intent.hasExtra("user_details")) {
             userDetails = intent.getParcelableExtra("user_details")!!
         }

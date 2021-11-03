@@ -7,7 +7,6 @@ import android.text.Spanned
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.ActivityRegisterBinding
 import com.example.encryptedimagesharingapp.model.entities.User
@@ -15,8 +14,6 @@ import com.example.encryptedimagesharingapp.model.firestore.FireStore
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class RegisterActivity : BaseActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -67,13 +64,7 @@ class RegisterActivity : BaseActivity() {
                             )
                         }
                         FireStore().registerUser(this@RegisterActivity, user)
-
-                        lifecycleScope.launch {
-                            delay(2000)
-                            startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
-                            finish()
-                        }
-
+                        startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
                     } else {
                         hideDialog()
                         showErrorSnackBar(task.exception!!.message.toString(), true)

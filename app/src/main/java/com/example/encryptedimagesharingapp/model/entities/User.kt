@@ -8,5 +8,6 @@ import kotlinx.parcelize.Parcelize
 data class User(
     val uuid: String = "",
     val name: String = "",
-    val email: String = ""
+    val email: String = "",
+    val isChecked: Boolean = false
 ) : Parcelable
