@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.ActivityMainBinding
 import com.example.encryptedimagesharingapp.ui.fragment.HomeFragment
-import com.example.encryptedimagesharingapp.ui.fragment.SettingsFragment
 import com.example.encryptedimagesharingapp.ui.fragment.UserListFragment
 import github.com.st235.lib_expandablebottombar.ExpandableBottomBar
 import github.com.st235.lib_expandablebottombar.MenuItemDescriptor
@@ -48,16 +47,6 @@ class MainActivity : AppCompatActivity() {
             )
                 .build()
         )
-        menu.add(
-            MenuItemDescriptor.Builder(
-                this,
-                R.id.settings,
-                R.drawable.ic_baseline_settings_24,
-                R.string.settings,
-                Color.BLUE
-            )
-                .build()
-        )
 
         bottomBar.onItemSelectedListener = { _, menuItem, _ ->
             when (menuItem.id) {
@@ -71,12 +60,6 @@ class MainActivity : AppCompatActivity() {
                     val userListFragment = UserListFragment()
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment, userListFragment)
-                        .commit()
-                }
-                R.id.settings -> {
-                    val settingsFragment = SettingsFragment()
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, settingsFragment)
                         .commit()
                 }
             }

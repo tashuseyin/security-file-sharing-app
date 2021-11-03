@@ -3,7 +3,7 @@
     <style name="Theme.EncryptedImageSharingApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/login_color</item>
+        <item name="colorPrimaryVariant">@color/dark_gray</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -19,8 +19,5 @@
         <item name="android:statusBarColor">@color/white</item>
     </style>
 
-    <style name="ShapeAppearanceOverlay.App.CornerSize4Percent" parent="">
-        <item name="cornerSize">30%</item>
-        <item name="backgroundColor">#2196F3</item>
-    </style>
+
 </resources>
