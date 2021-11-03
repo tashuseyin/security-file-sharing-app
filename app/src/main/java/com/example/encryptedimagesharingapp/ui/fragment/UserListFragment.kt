@@ -5,8 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.encryptedimagesharingapp.databinding.FragmentUserListBinding
 import com.example.encryptedimagesharingapp.model.entities.User
 import com.example.encryptedimagesharingapp.ui.adapter.UserAdapter
@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
 class UserListFragment : Fragment() {
 
@@ -23,7 +24,7 @@ class UserListFragment : Fragment() {
     private val binding get() = _binding!!
     private val db = Firebase.firestore.collection("users")
     private val userList = ArrayList<User>()
-    private lateinit var adapter: UserAdapter
+    private val adapter = UserAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,18 +37,10 @@ class UserListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = UserAdapter { position, isChecked ->
-            val currentUser = adapter.currentList[position]
-            if (isChecked) {
-                currentUser.copy(isChecked = !currentUser.isChecked)
-                binding.ok.isVisible = !currentUser.isChecked
-            } else {
-                binding.ok.isVisible = currentUser.isChecked
-            }
-        }
         binding.recyclerView.adapter = adapter
-        fetchData()
-
+        lifecycleScope.launch {
+            fetchData()
+        }
     }
 
     private fun fetchData() {
