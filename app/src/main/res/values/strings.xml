@@ -35,4 +35,6 @@
     <string name="save">SAVE</string>
     <string name="image_selection_failed">Image selection failed.</string>
     <string name="read_storage_permission_denied">Oops, you just denied the permission for storage. You can also allow it from settings.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
