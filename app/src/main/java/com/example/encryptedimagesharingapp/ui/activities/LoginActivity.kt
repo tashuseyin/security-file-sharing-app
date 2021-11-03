@@ -3,14 +3,15 @@ package com.example.encryptedimagesharingapp.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.lifecycle.lifecycleScope
+import android.util.Log
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.ActivityLoginBinding
+import com.example.encryptedimagesharingapp.model.firestore.FireStore
+import com.example.encryptedimagesharingapp.model.models.User
+import com.example.encryptedimagesharingapp.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -52,6 +53,25 @@ class LoginActivity : BaseActivity() {
         }
     }
 
+    fun userLoggedInSuccess(user: User) {
+        hideDialog()
+
+        Log.i("Name", user.name)
+        Log.i("Mail", user.email)
+
+
+        if (user.profileCompleted == 0) {
+            val intent = Intent(this@LoginActivity, UserProfileActivity::class.java)
+            intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
+            startActivity(intent)
+
+        } else {
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+        }
+        finish()
+    }
+
+
     private fun loginRegisteredUser() {
         if (validateLoginDetails()) {
             showDialog()
@@ -61,20 +81,14 @@ class LoginActivity : BaseActivity() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        hideDialog()
-                        showErrorSnackBar("You are logged in successfully.", false)
-                        lifecycleScope.launch {
-                            delay(1000L)
-                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                            finish()
-                        }
-                    } else {
-                        hideDialog()
-                        showErrorSnackBar(task.exception!!.message.toString(), true)
-                    }
-                }
+                        FireStore().getUserDetails(this@LoginActivity)
+                } else {
+                hideDialog()
+                showErrorSnackBar(task.exception!!.message.toString(), true)
+            }
         }
     }
+}
 
 
 }

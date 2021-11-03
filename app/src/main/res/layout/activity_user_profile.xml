@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.UserProfileActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@color/login_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/login_register_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_profile_image"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:src="@drawable/person"
+        app:civ_border_color="@color/green"
+        android:layout_marginTop="60dp"
+        app:civ_border_width="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/profile_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:focusableInTouchMode="true"
+        android:hint="@string/name"
+        android:textColorHint="@color/color_second_text"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        android:layout_margin="16dp"
+        app:boxStrokeColor="@color/login_color"
+        app:hintTextColor="@color/login_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_profile_image">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user_profile_name"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawablePadding="10dp"
+            android:inputType="text"
+            android:padding="16dp"
+            android:textColor="@color/color_primary_text"
+            android:textCursorDrawable="@drawable/text_cursor_color" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/profile_email"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:focusable="false"
+        android:focusableInTouchMode="true"
+        android:hint="@string/email"
+        android:textColorHint="@color/color_second_text"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/login_color"
+        app:hintTextColor="@color/login_color"
+        app:layout_constraintEnd_toEndOf="@+id/profile_name"
+        app:layout_constraintStart_toStartOf="@+id/profile_name"
+        app:layout_constraintTop_toBottomOf="@+id/profile_name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user_profile_email"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawablePadding="10dp"
+            android:inputType="text"
+            android:padding="16dp"
+            android:textColor="@color/color_primary_text"
+            android:textCursorDrawable="@drawable/text_cursor_color" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/profile_phone"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:focusable="false"
+        android:focusableInTouchMode="true"
+        android:hint="@string/phone_number"
+        android:textColorHint="@color/color_second_text"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/login_color"
+        app:hintTextColor="@color/login_color"
+        app:layout_constraintEnd_toEndOf="@+id/profile_email"
+        app:layout_constraintStart_toStartOf="@+id/profile_email"
+        app:layout_constraintTop_toBottomOf="@+id/profile_email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user_profile_phone"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawablePadding="10dp"
+            android:inputType="number"
+            android:padding="16dp"
+            android:textColor="@color/color_primary_text"
+            android:textCursorDrawable="@drawable/text_cursor_color" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <RadioGroup
+        android:id="@+id/group_gender"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/profile_phone"
+        app:layout_constraintStart_toStartOf="@+id/profile_phone"
+        app:layout_constraintTop_toBottomOf="@+id/profile_phone" >
+
+        <RadioButton
+            android:id="@+id/gender_male"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/gender_tab_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:layout_marginEnd="5dp"
+            android:text="MALE"
+            android:textSize="18sp"
+            android:textColor="@drawable/gender_text_selector"
+            android:textStyle="bold"/>
+
+        <RadioButton
+            android:id="@+id/gender_female"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/gender_tab_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="FEMALE"
+            android:textColor="@drawable/gender_text_selector"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RadioGroup>
+
+    <ImageView
+        android:id="@+id/button_profile_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/group_gender"
+        app:layout_constraintStart_toStartOf="@+id/group_gender"
+        app:layout_constraintTop_toBottomOf="@+id/group_gender"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/button_profile_save"
+        app:layout_constraintEnd_toEndOf="@+id/button_profile_save"
+        app:layout_constraintStart_toStartOf="@+id/button_profile_save"
+        app:layout_constraintTop_toTopOf="@+id/button_profile_save" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

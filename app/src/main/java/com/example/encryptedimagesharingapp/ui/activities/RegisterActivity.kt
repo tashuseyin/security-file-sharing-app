@@ -6,18 +6,19 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
-import androidx.lifecycle.lifecycleScope
+import android.widget.Toast
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.ActivityRegisterBinding
+import com.example.encryptedimagesharingapp.model.firestore.FireStore
+import com.example.encryptedimagesharingapp.model.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class RegisterActivity : BaseActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,19 +57,26 @@ class RegisterActivity : BaseActivity() {
                     hideDialog()
                     if (task.isSuccessful) {
                         val currentUser = auth.currentUser
-                        showErrorSnackBar(getString(R.string.register_successful), false)
-                        auth.signOut()
-                        lifecycleScope.launch {
-                            delay(1000L)
-                            startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
-                            finish()
+                        currentUser?.let { firebaseCurrentUser ->
+                            user = User(
+                                firebaseCurrentUser.uid,
+                                binding.name.text.toString().trim { it <= ' ' },
+                                binding.email.text.toString().trim { it <= ' ' }
+                            )
                         }
+
+                        FireStore().registerUser(this@RegisterActivity, user)
                     } else {
                         hideDialog()
                         showErrorSnackBar(task.exception!!.message.toString(), true)
                     }
                 }
         }
+    }
+
+    fun userRegistrationSuccess() {
+        hideDialog()
+        Toast.makeText(this, getString(R.string.register_successful), Toast.LENGTH_SHORT).show()
     }
 
 
