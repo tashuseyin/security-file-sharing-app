@@ -1,12 +1,13 @@
 package com.example.encryptedimagesharingapp.ui.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.FragmentHomeBinding
+import com.example.encryptedimagesharingapp.ui.activities.MainActivity
 
 
 class HomeFragment : Fragment() {
@@ -26,15 +27,19 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.selectFile.setOnClickListener {
-            startActivity(Intent(activity, SelectFileEncryptActivity::class.java))
-        }
-        binding.downloadSelect.setOnClickListener {
-            startActivity(Intent(activity, DownloadFileDecryptActivity::class.java))
-        }
-
+        setListeners()
     }
 
+    private fun setListeners() {
+        binding.apply {
+            selectFile.setOnClickListener {
+                val selectFileFragment = SelectFieEncryptFragment()
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragment, selectFileFragment)?.commit()
+                (activity as MainActivity).hideBottomBar()
+            }
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

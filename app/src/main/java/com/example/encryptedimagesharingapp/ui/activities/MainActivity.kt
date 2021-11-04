@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.ActivityMainBinding
 import com.example.encryptedimagesharingapp.ui.fragment.HomeFragment
@@ -21,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         bottomMenu()
     }
 //
@@ -94,6 +94,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    fun hideBottomBar() {
+        binding.expandableBottomBar.isVisible = false
+    }
+    fun showBottomBar() {
+        binding.expandableBottomBar.isVisible = true
     }
 }
 
