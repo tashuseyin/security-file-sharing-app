@@ -1,6 +1,5 @@
 package com.example.encryptedimagesharingapp.ui.fragment
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -8,18 +7,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.FragmentSelectFileEncryptBinding
 import com.example.encryptedimagesharingapp.ui.activities.MainActivity
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
+import com.example.encryptedimagesharingapp.util.Util
 
 class SelectFieEncryptFragment : Fragment() {
 
@@ -76,37 +69,21 @@ class SelectFieEncryptFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == requestDocument && data != null) {
             file = data.data!!
         }
-        binding.imageFile.setImageURI(file)
-        binding.fileName.text = DocumentFile.fromSingleUri(requireContext(),file)?.name
+        binding.fileName.text = DocumentFile.fromSingleUri(requireContext(), file)?.name
+        binding.imageFile.setImageResource(R.drawable.folder)
     }
+
 
     private fun dispatchTakePictureGalleryIntent(type: String) {
-        Dexter.withContext(context)
-            .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-            .withListener(object : PermissionListener {
-                override fun onPermissionGranted(response: PermissionGrantedResponse?) {
+        Util.dispatchTakePictureGalleryIntent(requireContext()) {
+            when (it) {
+                Util.PermissionType.GRANTED -> {
                     openGallery(type)
                 }
-
-                override fun onPermissionDenied(response: PermissionDeniedResponse?) {
-                    Toast.makeText(
-                        context,
-                        "You have denied storage permission.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                override fun onPermissionRationaleShouldBeShown(
-                    p0: PermissionRequest?,
-                    token: PermissionToken?
-                ) {
-                    token!!.continuePermissionRequest()
-                }
-            }).withErrorListener {
-                Toast.makeText(context, "Error occurred!", Toast.LENGTH_SHORT).show()
-            }.onSameThread()
-            .check()
+            }
+        }
     }
+
 
     private fun dispatchDocumentIntent(type: String) {
         val intent = Intent()
@@ -122,7 +99,6 @@ class SelectFieEncryptFragment : Fragment() {
         intent.type = type
         startActivityForResult(intent, requestMedia)
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

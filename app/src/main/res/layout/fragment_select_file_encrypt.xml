@@ -118,6 +118,7 @@
             android:layout_marginStart="16dp"
             android:fontFamily="@font/falling"
             android:textColor="@color/black"
+            android:layout_marginTop="25dp"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/image_file"
             app:layout_constraintTop_toTopOf="@+id/image_file"
