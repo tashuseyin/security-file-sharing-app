@@ -1,13 +1,11 @@
 package com.example.encryptedimagesharingapp.ui.activities
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.ActivityMainBinding
-import com.example.encryptedimagesharingapp.model.entities.User
 import com.example.encryptedimagesharingapp.ui.fragment.HomeFragment
 import com.example.encryptedimagesharingapp.ui.fragment.UserListFragment
 import com.google.firebase.auth.FirebaseAuth
@@ -16,8 +14,8 @@ import github.com.st235.lib_expandablebottombar.MenuItemDescriptor
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var userDetails: User
-    private lateinit var auth: FirebaseAuth
+//    private lateinit var userDetails: User
+//    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,18 +24,18 @@ class MainActivity : AppCompatActivity() {
 
         bottomMenu()
     }
-
-    fun getUserName(): String {
-        val sharedPreferences = getSharedPreferences("name_prefer", Context.MODE_PRIVATE)
-        return sharedPreferences.getString("logged_in_username", " ")!!
-    }
-
-    fun getUserDetails(): User {
-        if (intent.hasExtra("user_details")) {
-            userDetails = intent.getParcelableExtra("user_details")!!
-        }
-        return userDetails
-    }
+//
+//    fun getUserName(): String {
+//        val sharedPreferences = getSharedPreferences("name_prefer", Context.MODE_PRIVATE)
+//        return sharedPreferences.getString("logged_in_username", " ")!!
+//    }
+//
+//    fun getUserDetails(): User {
+//        if (intent.hasExtra("user_details")) {
+//            userDetails = intent.getParcelableExtra("user_details")!!
+//        }
+//        return userDetails
+//    }
 
     private fun bottomMenu() {
         val bottomBar: ExpandableBottomBar = binding.expandableBottomBar

@@ -3,6 +3,7 @@ package com.example.encryptedimagesharingapp.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import androidx.lifecycle.lifecycleScope
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.ActivityLoginBinding
 import com.example.encryptedimagesharingapp.model.entities.User
@@ -10,6 +11,8 @@ import com.example.encryptedimagesharingapp.model.firestore.FireStore
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -50,14 +53,14 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-    fun userLoggedInSuccess(user: User) {
-        hideDialog()
-        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-        intent.putExtra("user_details", user)
-        startActivity(intent)
-        finish()
-
-    }
+//    fun userLoggedInSuccess(user: User) {
+//        hideDialog()
+//        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+//        intent.putExtra("user_details", user)
+//        startActivity(intent)
+//        finish()
+//
+//    }
 
 
     private fun loginRegisteredUser() {
@@ -70,7 +73,12 @@ class LoginActivity : BaseActivity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val currentUser = auth.currentUser
-                        FireStore().getUserDetails(this@LoginActivity)
+//                        FireStore().getUserDetails(this@LoginActivity)
+                        lifecycleScope.launch {
+                            delay(1000)
+                            startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+                            finish()
+                        }
                     } else {
                         hideDialog()
                         showErrorSnackBar(task.exception!!.message.toString(), true)

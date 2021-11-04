@@ -1,16 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/username"
+    <ImageView
+        android:id="@+id/select_file"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="@color/white"
-        android:text="Home Fragment" />
+        android:layout_height="180dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/button_background"
+        app:layout_constraintBottom_toTopOf="@+id/download_select"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select file\n and \n encrypt"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/select_file"
+        app:layout_constraintEnd_toEndOf="@+id/select_file"
+        app:layout_constraintStart_toStartOf="@+id/select_file"
+        app:layout_constraintTop_toTopOf="@+id/select_file" />
+
+
+    <ImageView
+        android:id="@+id/download_select"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_file" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Download file \n and \n decrypt"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/download_select"
+        app:layout_constraintEnd_toEndOf="@+id/download_select"
+        app:layout_constraintStart_toStartOf="@+id/download_select"
+        app:layout_constraintTop_toTopOf="@+id/download_select" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

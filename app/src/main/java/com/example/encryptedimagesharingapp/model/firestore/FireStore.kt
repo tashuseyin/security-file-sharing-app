@@ -29,43 +29,43 @@ class FireStore {
             }
     }
 
-    private fun getCurrentUserId(): String {
-        val currentUser = FirebaseAuth.getInstance().currentUser
+//    private fun getCurrentUserId(): String {
+//        val currentUser = FirebaseAuth.getInstance().currentUser
+//
+//        var currentUserUUID = ""
+//        if (currentUser != null) {
+//            currentUserUUID = currentUser.uid
+//        }
+//        return currentUserUUID
+//    }
 
-        var currentUserUUID = ""
-        if (currentUser != null) {
-            currentUserUUID = currentUser.uid
-        }
-        return currentUserUUID
-    }
-
-    fun getUserDetails(activity: Activity) {
-        db.document(getCurrentUserId())
-            .get()
-            .addOnSuccessListener { document ->
-                Log.i("TAG", document.toString())
-                val user = document.toObject(User::class.java)!!
-
-                val sharedPreferences =
-                    activity.getSharedPreferences("name_prefer", Context.MODE_PRIVATE)
-                val editor: SharedPreferences.Editor = sharedPreferences.edit()
-                editor.putString("logged_in_username", "${user.name}")
-                editor.apply()
-
-                when (activity) {
-                    is LoginActivity -> {
-                        activity.userLoggedInSuccess(user)
-                    }
-                }
-            }
-            .addOnFailureListener {
-                when (activity) {
-                    is LoginActivity -> {
-                        activity.hideDialog()
-                    }
-                }
-            }
-    }
+//    fun getUserDetails(activity: Activity) {
+//        db.document(getCurrentUserId())
+//            .get()
+//            .addOnSuccessListener { document ->
+//                Log.i("TAG", document.toString())
+//                val user = document.toObject(User::class.java)!!
+//
+//                val sharedPreferences =
+//                    activity.getSharedPreferences("name_prefer", Context.MODE_PRIVATE)
+//                val editor: SharedPreferences.Editor = sharedPreferences.edit()
+//                editor.putString("logged_in_username", "${user.name}")
+//                editor.apply()
+//
+//                when (activity) {
+//                    is LoginActivity -> {
+//                        activity.userLoggedInSuccess(user)
+//                    }
+//                }
+//            }
+//            .addOnFailureListener {
+//                when (activity) {
+//                    is LoginActivity -> {
+//                        activity.hideDialog()
+//                    }
+//                }
+//            }
+//    }
 
 
 }
