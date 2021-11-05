@@ -6,8 +6,6 @@ import android.text.TextUtils
 import androidx.lifecycle.lifecycleScope
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.ActivityLoginBinding
-import com.example.encryptedimagesharingapp.model.entities.User
-import com.example.encryptedimagesharingapp.model.firestore.FireStore
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -53,15 +51,6 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-//    fun userLoggedInSuccess(user: User) {
-//        hideDialog()
-//        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-//        intent.putExtra("user_details", user)
-//        startActivity(intent)
-//        finish()
-//
-//    }
-
 
     private fun loginRegisteredUser() {
         if (validateLoginDetails()) {
@@ -73,10 +62,9 @@ class LoginActivity : BaseActivity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val currentUser = auth.currentUser
-//                        FireStore().getUserDetails(this@LoginActivity)
                         lifecycleScope.launch {
                             delay(1000)
-                            startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                             finish()
                         }
                     } else {

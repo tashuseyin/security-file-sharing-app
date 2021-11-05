@@ -13,18 +13,18 @@ import androidx.fragment.app.Fragment
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.FragmentSelectFileEncryptBinding
 import com.example.encryptedimagesharingapp.model.entities.User
+import com.example.encryptedimagesharingapp.model.storage.Storage
 import com.example.encryptedimagesharingapp.ui.activities.MainActivity
-import com.example.encryptedimagesharingapp.ui.adapter.SelectFileAdapter
 import com.example.encryptedimagesharingapp.util.Util
 
-class SelectFileEncryptFragment(private val userList: List<User>) : Fragment() {
+class SelectFileEncryptFragment(private val user: User) : Fragment() {
 
     private var _binding: FragmentSelectFileEncryptBinding? = null
     private val binding get() = _binding!!
     private val requestMedia = 100
     private val requestDocument = 101
     private lateinit var file: Uri
-    private lateinit var adapter: SelectFileAdapter
+    private lateinit var fileNames: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,13 +36,12 @@ class SelectFileEncryptFragment(private val userList: List<User>) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.name.text = user.name
+        binding.email.text = user.email
+
         setListeners()
-
-        adapter = SelectFileAdapter(userList)
-        binding.selectFileRecyclerView.adapter = adapter
-
     }
-
 
     private fun setListeners() {
         binding.apply {
@@ -65,7 +64,9 @@ class SelectFileEncryptFragment(private val userList: List<User>) : Fragment() {
                 binding.fileText.isVisible = false
                 dispatchDocumentIntent("application/*")
             }
-
+            uploadButton.setOnClickListener {
+                Storage().uploadFile(requireContext(), user.uuid, fileNames, file)
+            }
         }
     }
 
@@ -79,7 +80,8 @@ class SelectFileEncryptFragment(private val userList: List<User>) : Fragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == requestDocument && data != null) {
             file = data.data!!
         }
-        binding.fileName.text = DocumentFile.fromSingleUri(requireContext(), file)?.name
+        fileNames = DocumentFile.fromSingleUri(requireContext(), file)?.name.toString()
+        binding.fileName.text = fileNames
         binding.imageFile.setImageResource(R.drawable.folder)
     }
 

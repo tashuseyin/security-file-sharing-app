@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.FragmentUserListBinding
 import com.example.encryptedimagesharingapp.model.entities.User
+import com.example.encryptedimagesharingapp.ui.activities.MainActivity
 import com.example.encryptedimagesharingapp.ui.adapter.UserAdapter
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.EventListener
@@ -26,7 +27,6 @@ class UserListFragment : Fragment() {
     private val db = Firebase.firestore.collection("users")
     private lateinit var adapter: UserAdapter
     private val userList = ArrayList<User>()
-    private val isSelectedUserList = ArrayList<User>()
 
 
     override fun onCreateView(
@@ -40,25 +40,18 @@ class UserListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = UserAdapter { position ->
-            userList[position] = userList[position].copy(isChecked = !userList[position].isChecked)
+        adapter = UserAdapter { user ->
+            val selectFileEncryptFragment = SelectFileEncryptFragment(user)
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.fragment, selectFileEncryptFragment)?.commit()
+            (activity as MainActivity).hideBottomBar()
         }
         binding.recyclerView.adapter = adapter
-
-
-        binding.btnOk.setOnClickListener {
-            val selectFileEncryptFragment =
-                SelectFileEncryptFragment(userList.filter { it.isChecked })
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment, selectFileEncryptFragment)
-                ?.commit()
-        }
 
         lifecycleScope.launch {
             fetchData()
         }
     }
-
     private fun fetchData() {
         db.addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {

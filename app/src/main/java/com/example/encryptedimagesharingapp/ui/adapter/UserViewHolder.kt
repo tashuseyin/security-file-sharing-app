@@ -5,14 +5,12 @@ import com.example.encryptedimagesharingapp.databinding.UserItemBinding
 import com.example.encryptedimagesharingapp.model.entities.User
 
 class UserViewHolder(private val binding: UserItemBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(user: User, onItemClickListener: (Int) -> Unit) {
+    fun bind(user: User, onItemClickListener: (user:User) -> Unit) {
         binding.name.text = user.name
         binding.email.text = user.email
-        binding.checkbox.isChecked = user.isChecked
 
-        binding.checkbox.setOnClickListener {
-            onItemClickListener(adapterPosition)
+        binding.root.setOnClickListener {
+            onItemClickListener(user)
         }
-
     }
 }

@@ -15,8 +15,6 @@ import github.com.st235.lib_expandablebottombar.MenuItemDescriptor
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-//    private lateinit var userDetails: User
-//    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,18 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         bottomMenu()
     }
-//
-//    fun getUserName(): String {
-//        val sharedPreferences = getSharedPreferences("name_prefer", Context.MODE_PRIVATE)
-//        return sharedPreferences.getString("logged_in_username", " ")!!
-//    }
-//
-//    fun getUserDetails(): User {
-//        if (intent.hasExtra("user_details")) {
-//            userDetails = intent.getParcelableExtra("user_details")!!
-//        }
-//        return userDetails
-//    }
+
 
     private fun bottomMenu() {
         val bottomBar: ExpandableBottomBar = binding.expandableBottomBar
@@ -99,6 +86,7 @@ class MainActivity : AppCompatActivity() {
     fun hideBottomBar() {
         binding.expandableBottomBar.isVisible = false
     }
+
     fun showBottomBar() {
         binding.expandableBottomBar.isVisible = true
     }

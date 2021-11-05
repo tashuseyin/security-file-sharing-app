@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.encryptedimagesharingapp.databinding.UserItemBinding
 import com.example.encryptedimagesharingapp.model.entities.User
 
-class UserAdapter(private val onItemClickListener: (Int) -> Unit): ListAdapter<User, UserViewHolder>(DiffCallBack()) {
+class UserAdapter(private val onItemClickListener: (user:User) -> Unit): ListAdapter<User, UserViewHolder>(DiffCallBack()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val binding = UserItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UserViewHolder(binding)
