@@ -8,14 +8,14 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.encryptedimagesharingapp.databinding.UserItemBinding
 import com.example.encryptedimagesharingapp.model.entities.User
 
-class UserAdapter: ListAdapter<User, UserViewHolder>(DiffCallBack()) {
+class UserAdapter(private val onItemClickListener: (Int) -> Unit): ListAdapter<User, UserViewHolder>(DiffCallBack()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val binding = UserItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UserViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), onItemClickListener)
     }
 
 }

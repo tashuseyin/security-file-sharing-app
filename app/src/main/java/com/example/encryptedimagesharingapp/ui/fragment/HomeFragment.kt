@@ -33,9 +33,9 @@ class HomeFragment : Fragment() {
     private fun setListeners() {
         binding.apply {
             selectFile.setOnClickListener {
-                val selectFileFragment = SelectFieEncryptFragment()
+                val userListFragment = UserListFragment()
                 activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.fragment, selectFileFragment)?.commit()
+                    ?.replace(R.id.fragment, userListFragment)?.commit()
                 (activity as MainActivity).hideBottomBar()
             }
         }

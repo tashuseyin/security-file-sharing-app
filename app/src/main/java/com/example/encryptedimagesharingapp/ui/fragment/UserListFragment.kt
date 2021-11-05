@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.FragmentUserListBinding
 import com.example.encryptedimagesharingapp.model.entities.User
 import com.example.encryptedimagesharingapp.ui.adapter.UserAdapter
@@ -23,8 +24,10 @@ class UserListFragment : Fragment() {
     private var _binding: FragmentUserListBinding? = null
     private val binding get() = _binding!!
     private val db = Firebase.firestore.collection("users")
+    private lateinit var adapter: UserAdapter
     private val userList = ArrayList<User>()
-    private val adapter = UserAdapter()
+    private val isSelectedUserList = ArrayList<User>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +40,20 @@ class UserListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapter = UserAdapter { position ->
+            userList[position] = userList[position].copy(isChecked = !userList[position].isChecked)
+        }
         binding.recyclerView.adapter = adapter
+
+
+        binding.btnOk.setOnClickListener {
+            val selectFileEncryptFragment =
+                SelectFileEncryptFragment(userList.filter { it.isChecked })
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.fragment, selectFileEncryptFragment)
+                ?.commit()
+        }
+
         lifecycleScope.launch {
             fetchData()
         }
