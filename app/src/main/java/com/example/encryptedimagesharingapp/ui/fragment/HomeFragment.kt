@@ -81,13 +81,18 @@ class HomeFragment : Fragment() {
             .addOnSuccessListener { listResult ->
                 listResult.items.forEach {
                     fileList.add(it.name)
-                    Toast.makeText(context, "$fileList", Toast.LENGTH_SHORT).show()
+                }
+                if (fileList.isEmpty()){
+                    Toast.makeText(context, "Size gönderilmiş dosya bulunmamaktadır.", Toast.LENGTH_SHORT).show()
+                } else{
+                    Toast.makeText(context, "Yeni bir dosyanız var.", Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener {
                 Toast.makeText(context, "Error occurred!", Toast.LENGTH_SHORT).show()
             }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
