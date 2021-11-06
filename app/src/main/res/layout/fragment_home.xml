@@ -13,6 +13,7 @@
         android:layout_margin="20dp"
         android:src="@drawable/button_background"
         app:layout_constraintBottom_toTopOf="@+id/download_select"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,6 +23,8 @@
         android:text="Select file\n and \n encrypt"
         android:textColor="@color/white"
         android:textSize="30sp"
+        android:padding="20dp"
+        android:fontFamily="@font/falling"
         app:layout_constraintBottom_toBottomOf="@+id/select_file"
         app:layout_constraintEnd_toEndOf="@+id/select_file"
         app:layout_constraintStart_toStartOf="@+id/select_file"
@@ -46,6 +49,7 @@
         android:text="Download file \n and \n decrypt"
         android:textColor="@color/white"
         android:textSize="30sp"
+        android:fontFamily="@font/falling"
         app:layout_constraintBottom_toBottomOf="@+id/download_select"
         app:layout_constraintEnd_toEndOf="@+id/download_select"
         app:layout_constraintStart_toStartOf="@+id/download_select"

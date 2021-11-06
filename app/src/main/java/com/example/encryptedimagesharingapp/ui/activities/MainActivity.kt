@@ -1,5 +1,6 @@
 package com.example.encryptedimagesharingapp.ui.activities
 
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -23,6 +24,24 @@ class MainActivity : AppCompatActivity() {
         bottomMenu()
     }
 
+
+    private var dialog: Dialog? = null
+
+    fun showDialog() {
+        dialog = Dialog(this)
+        dialog?.let {
+            it.apply {
+                setContentView(R.layout.dialog)
+                setCancelable(false)
+                setCanceledOnTouchOutside(false)
+                show()
+            }
+        }
+    }
+
+    fun hideDialog() {
+        dialog?.dismiss()
+    }
 
     private fun bottomMenu() {
         val bottomBar: ExpandableBottomBar = binding.expandableBottomBar
