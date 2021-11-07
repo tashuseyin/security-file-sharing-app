@@ -2,6 +2,8 @@ package com.example.encryptedimagesharingapp.ui.fragment
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +25,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
-    private var fileList = ArrayList<String>()
     private val storage = Firebase.storage
     private val storageReference = storage.reference
 
@@ -39,7 +40,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         auth = Firebase.auth
         setListeners()
-        getData()
     }
 
     private fun setListeners() {
@@ -53,25 +53,28 @@ class HomeFragment : Fragment() {
 
             downloadSelect.setOnClickListener {
                 downloadSelect.isEnabled = false
-                val file = fileList[0].split(".")
-                val name = file[0]
-                val type = file[1]
-                downloadFile(name, type)
+                getData()
                 downloadSelect.isEnabled = true
             }
         }
     }
 
-
     private fun downloadFile(name: String, type: String) {
-        val fileRef: StorageReference? = storageReference.child("${auth.uid}")
-        val localFile = File.createTempFile(name, ".${type}")
-        fileRef?.getFile(localFile)?.addOnSuccessListener {
-            val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-            Toast.makeText(context, "Download Successfully.", Toast.LENGTH_SHORT).show()
-        }?.addOnFailureListener { exception ->
-            Toast.makeText(context, exception.toString(), Toast.LENGTH_SHORT).show()
+        val rootPath =
+            File(Environment.getExternalStorageDirectory(),"AppFile")
+        if (!rootPath.exists()) {
+            rootPath.mkdirs()
         }
+        val fileRef: StorageReference = storageReference.child("${auth.uid}/$name.$type")
+        val localFile = File(rootPath, "$name.$type")
+        fileRef.getFile(localFile)
+            .addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                Toast.makeText(context, "Download Successfully.", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(context, exception.message, Toast.LENGTH_SHORT).show()
+            }
     }
 
 
@@ -79,17 +82,24 @@ class HomeFragment : Fragment() {
         val storageReference = storage.reference.child("${auth.uid}")
         storageReference.listAll()
             .addOnSuccessListener { listResult ->
-                listResult.items.forEach {
-                    fileList.add(it.name)
-                }
-                if (fileList.isEmpty()){
-                    Toast.makeText(context, "Size gönderilmiş dosya bulunmamaktadır.", Toast.LENGTH_SHORT).show()
-                } else{
-                    Toast.makeText(context, "Yeni bir dosyanız var.", Toast.LENGTH_SHORT).show()
-                }
+                val file = listResult.items[0].name.split(".")
+                val name = file[0]
+                val type = file[1]
+                downloadFile(name, type)
             }
             .addOnFailureListener {
                 Toast.makeText(context, "Error occurred!", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun removeFile() {
+        val storageReference = storage.reference.child("${auth.uid}")
+        storageReference.delete()
+            .addOnSuccessListener {
+                Toast.makeText(context, "File successfully deleted.", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(context, exception.message, Toast.LENGTH_SHORT).show()
             }
     }
 

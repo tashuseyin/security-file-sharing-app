@@ -1,9 +1,11 @@
 package com.example.encryptedimagesharingapp.ui.activities
 
+import android.Manifest
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.encryptedimagesharingapp.R
@@ -11,6 +13,12 @@ import com.example.encryptedimagesharingapp.databinding.ActivityMainBinding
 import com.example.encryptedimagesharingapp.ui.fragment.HomeFragment
 import com.example.encryptedimagesharingapp.ui.fragment.UserListFragment
 import com.google.firebase.auth.FirebaseAuth
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import github.com.st235.lib_expandablebottombar.ExpandableBottomBar
 import github.com.st235.lib_expandablebottombar.MenuItemDescriptor
 
@@ -21,9 +29,36 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        createFilePermission()
         bottomMenu()
     }
 
+    private fun createFilePermission() {
+        Dexter.withContext(this)
+            .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+            .withListener(object : PermissionListener {
+                override fun onPermissionGranted(response: PermissionGrantedResponse?) {
+                }
+
+                override fun onPermissionDenied(response: PermissionDeniedResponse?) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "You have denied storage permission.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    p0: PermissionRequest?,
+                    token: PermissionToken?
+                ) {
+                    token!!.continuePermissionRequest()
+                }
+            }).withErrorListener {
+                Toast.makeText(this, "Error occurred!", Toast.LENGTH_SHORT).show()
+            }.onSameThread()
+            .check()
+    }
 
     private var dialog: Dialog? = null
 
