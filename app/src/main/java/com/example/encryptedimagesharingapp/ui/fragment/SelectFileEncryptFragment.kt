@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.FragmentSelectFileEncryptBinding
 import com.example.encryptedimagesharingapp.model.entities.User
@@ -20,8 +19,6 @@ import com.example.encryptedimagesharingapp.util.Util
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class SelectFileEncryptFragment(private val user: User) : Fragment() {
 
@@ -85,21 +82,18 @@ class SelectFileEncryptFragment(private val user: User) : Fragment() {
         filesRef?.putFile(file)
             ?.addOnSuccessListener { task ->
                 task.metadata!!.reference!!.downloadUrl
-                    .addOnSuccessListener { uri ->
+                    .addOnSuccessListener {
                         (activity as MainActivity).hideDialog()
                         Toast.makeText(
                             context,
                             "Your files was upload successfully.",
                             Toast.LENGTH_SHORT
                         ).show()
-                        lifecycleScope.launch {
-                            delay(1000)
-                            val homeFragment = HomeFragment()
-                            activity?.supportFragmentManager?.beginTransaction()
-                                ?.replace(R.id.fragment, homeFragment)
-                                ?.commit()
-                            (activity as MainActivity).showBottomBar()
-                        }
+                        val homeFragment = HomeFragment()
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment, homeFragment)
+                            ?.commit()
+                        (activity as MainActivity).showBottomBar()
                     }.addOnFailureListener { exception ->
                         Toast.makeText(context, exception.message, Toast.LENGTH_SHORT).show()
                     }
