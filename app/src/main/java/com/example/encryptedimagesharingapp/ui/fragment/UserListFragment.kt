@@ -6,19 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.FragmentUserListBinding
 import com.example.encryptedimagesharingapp.model.entities.User
 import com.example.encryptedimagesharingapp.ui.activities.MainActivity
 import com.example.encryptedimagesharingapp.ui.adapter.UserAdapter
 import com.google.firebase.firestore.DocumentChange
-import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.launch
 
 class UserListFragment : Fragment() {
 
@@ -47,26 +42,21 @@ class UserListFragment : Fragment() {
             (activity as MainActivity).hideBottomBar()
         }
         binding.recyclerView.adapter = adapter
-
-        lifecycleScope.launch {
-            fetchData()
-        }
+        fetchData()
     }
+
     private fun fetchData() {
-        db.addSnapshotListener(object : EventListener<QuerySnapshot> {
-            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                if (error != null) {
-                    Log.e("Error", error.message.toString())
-                    return
-                }
-                for (dc: DocumentChange in value?.documentChanges!!) {
-                    if (dc.type == DocumentChange.Type.ADDED) {
-                        userList.add(dc.document.toObject(User::class.java))
-                    }
-                }
-                adapter.submitList(userList)
+        db.addSnapshotListener { value, error ->
+            if (error != null) {
+                Log.e("Error", error.message.toString())
             }
-        })
+            for (dc: DocumentChange in value?.documentChanges!!) {
+                if (dc.type == DocumentChange.Type.ADDED) {
+                    userList.add(dc.document.toObject(User::class.java))
+                }
+            }
+            adapter.submitList(userList)
+        }
     }
 
     override fun onDestroyView() {

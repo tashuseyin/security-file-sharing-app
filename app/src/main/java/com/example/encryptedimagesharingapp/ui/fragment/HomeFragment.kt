@@ -1,8 +1,11 @@
 package com.example.encryptedimagesharingapp.ui.fragment
 
+import android.content.ContentValues.TAG
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +13,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.FragmentHomeBinding
+import com.example.encryptedimagesharingapp.ui.activities.LoginActivity
 import com.example.encryptedimagesharingapp.ui.activities.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
@@ -24,6 +29,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
+    private val db = Firebase.firestore.collection("users")
     private val storage = Firebase.storage
     private val storageReference = storage.reference
 
@@ -50,12 +56,36 @@ class HomeFragment : Fragment() {
                 (activity as MainActivity).hideBottomBar()
             }
 
+            deleteAccount.setOnClickListener {
+                userDelete()
+                deleteUserFireStore()
+            }
+
             downloadSelect.setOnClickListener {
                 downloadSelect.isEnabled = false
                 getData()
                 downloadSelect.isEnabled = true
             }
         }
+    }
+
+
+    private fun userDelete() {
+        val user = auth.currentUser!!
+        user.delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    startActivity(Intent(activity, LoginActivity::class.java))
+                    activity?.finish()
+                }
+            }
+    }
+
+    private fun deleteUserFireStore() {
+        db.document(auth.uid!!)
+            .delete()
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+            .addOnFailureListener { Log.w(TAG, "Error deleting document", it) }
     }
 
     private fun downloadFile(name: String, type: String) {

@@ -64,7 +64,9 @@ class RegisterActivity : BaseActivity() {
                             )
                         }
                         FireStore().registerUser(this@RegisterActivity, user)
+                        auth.signOut()
                         startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                        finish()
                     } else {
                         hideDialog()
                         showErrorSnackBar(task.exception!!.message.toString(), true)

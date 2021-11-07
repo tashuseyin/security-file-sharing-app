@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.HomeFragment">
 
+
+    <ImageView
+        android:id="@+id/delete_account"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="12dp"
+        android:src="@drawable/deleteaccount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
     <ImageView
         android:id="@+id/select_file"
         android:layout_width="match_parent"
