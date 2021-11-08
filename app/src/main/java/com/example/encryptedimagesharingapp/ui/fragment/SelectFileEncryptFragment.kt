@@ -26,8 +26,8 @@ class SelectFileEncryptFragment(private val user: User) : Fragment() {
     private val binding get() = _binding!!
     private val requestMedia = 100
     private val requestDocument = 101
-    private lateinit var file: Uri
     private lateinit var fileNames: String
+    private var file: Uri? = null
     private val storage = Firebase.storage
     private val storageReference = storage.reference
 
@@ -57,61 +57,64 @@ class SelectFileEncryptFragment(private val user: User) : Fragment() {
                     ?.replace(R.id.fragment, homeFragment)?.commit()
             }
             addImage.setOnClickListener {
-                binding.fileText.isVisible = false
                 dispatchTakePictureGalleryIntent("image/*")
             }
 
             addVideo.setOnClickListener {
-                binding.fileText.isVisible = false
                 dispatchTakePictureGalleryIntent("video/*")
             }
             addDocument.setOnClickListener {
-                binding.fileText.isVisible = false
                 dispatchDocumentIntent("application/*")
             }
             uploadButton.setOnClickListener {
-                uploadFile()
+                file?.let {
+                    uploadFile(it)
+                }
             }
         }
+
     }
 
 
-    private fun uploadFile() {
+    private fun uploadFile(file: Uri) {
         val filesRef: StorageReference? = storageReference.child("${user.uuid}/$fileNames")
         (activity as MainActivity).showDialog()
         filesRef?.putFile(file)
-            ?.addOnSuccessListener { task ->
-                task.metadata!!.reference!!.downloadUrl
-                    .addOnSuccessListener {
-                        (activity as MainActivity).hideDialog()
-                        Toast.makeText(
-                            context,
-                            "Your files was upload successfully.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        val homeFragment = HomeFragment()
-                        activity?.supportFragmentManager?.beginTransaction()
-                            ?.replace(R.id.fragment, homeFragment)
-                            ?.commit()
-                        (activity as MainActivity).showBottomBar()
-                    }.addOnFailureListener { exception ->
-                        Toast.makeText(context, exception.message, Toast.LENGTH_SHORT).show()
-                    }
+            ?.addOnSuccessListener { _ ->
+                (activity as MainActivity).hideDialog()
+                Toast.makeText(
+                    context,
+                    "Your files was upload successfully.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                val homeFragment = HomeFragment()
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragment, homeFragment)
+                    ?.commit()
+                (activity as MainActivity).showBottomBar()
             }
+            ?.addOnFailureListener { exception ->
+                Toast.makeText(context, exception.message, Toast.LENGTH_SHORT).show()
+            }
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == requestMedia && data != null) {
-            file = data.data!!
+        if (resultCode == Activity.RESULT_OK && requestCode == requestMedia) {
+            file = data?.data!!
         }
 
-        if (resultCode == Activity.RESULT_OK && requestCode == requestDocument && data != null) {
-            file = data.data!!
+        if (resultCode == Activity.RESULT_OK && requestCode == requestDocument) {
+            file = data?.data!!
         }
-        fileNames = DocumentFile.fromSingleUri(requireContext(), file)?.name.toString()
-        binding.fileName.text = fileNames
-        binding.imageFile.setImageResource(R.drawable.folder)
+        file?.let {
+            fileNames = DocumentFile.fromSingleUri(requireContext(), it)?.name.toString()
+            binding.fileName.text = fileNames
+            binding.imageFile.setImageResource(R.drawable.folder)
+            binding.fileSelectText.isVisible = false
+        }
     }
 
 

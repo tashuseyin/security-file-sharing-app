@@ -29,6 +29,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
+    private lateinit var file: List<String>
     private val db = Firebase.firestore.collection("users")
     private val storage = Firebase.storage
     private val storageReference = storage.reference
@@ -57,10 +58,9 @@ class HomeFragment : Fragment() {
             }
 
             deleteAccount.setOnClickListener {
-                userDelete()
                 deleteUserFireStore()
+                userDelete()
             }
-
             downloadSelect.setOnClickListener {
                 downloadSelect.isEnabled = false
                 getData()
@@ -115,10 +115,20 @@ class HomeFragment : Fragment() {
         (activity as MainActivity).showDialog()
         storageReference.listAll()
             .addOnSuccessListener { listResult ->
-                val file = listResult.items[0].name.split(".")
-                val name = file[0]
-                val type = file[1]
-                downloadFile(name, type)
+                if (listResult.items.isEmpty()) {
+                    (activity as MainActivity).hideDialog()
+                    Toast.makeText(
+                        context,
+                        "Şuan size gönderilmiş bir dosya bulunmamaktadır.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    file = listResult.items[0].name.split(".")
+                    val name = file[0]
+                    val type = file[1]
+                    downloadFile(name, type)
+                }
+
             }
             .addOnFailureListener {
                 (activity as MainActivity).hideDialog()

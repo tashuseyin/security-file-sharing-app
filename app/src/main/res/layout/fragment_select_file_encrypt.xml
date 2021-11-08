@@ -129,7 +129,7 @@
             tools:text="File Name" />
 
         <TextView
-            android:id="@+id/file_text"
+            android:id="@+id/file_select_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/falling"
