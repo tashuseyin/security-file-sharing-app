@@ -19,6 +19,9 @@ import com.example.encryptedimagesharingapp.util.Util
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
+import java.io.File
+
 
 class SelectFileEncryptFragment(private val user: User) : Fragment() {
 
@@ -28,6 +31,7 @@ class SelectFileEncryptFragment(private val user: User) : Fragment() {
     private val requestDocument = 101
     private lateinit var fileNames: String
     private var file: Uri? = null
+    private var finalNumber: Int = 0
     private val storage = Firebase.storage
     private val storageReference = storage.reference
 
@@ -64,11 +68,24 @@ class SelectFileEncryptFragment(private val user: User) : Fragment() {
                 dispatchTakePictureGalleryIntent("video/*")
             }
             addDocument.setOnClickListener {
-                dispatchDocumentIntent("application/*")
+                dispatchDocumentIntent("*/*")
             }
             uploadButton.setOnClickListener {
-                file?.let {
-                    uploadFile(it)
+                file?.let { uri ->
+                    var os = ByteArrayOutputStream()
+                    val inputStream =
+                        (activity as MainActivity).contentResolver.openInputStream(uri)
+                    val byteArray = inputStream?.readBytes()
+                    val newData = ByteArray(byteArray?.size!!)
+                    var index = 0
+                    user.uuid.forEach {
+                        finalNumber = (it.toInt() + finalNumber) % 100
+                    }
+                    byteArray.forEach { byte ->
+                        newData.set(index, (byte - finalNumber).toByte())
+                        index++
+                    }
+                    uploadFile(newData)
                 }
             }
         }
@@ -76,10 +93,10 @@ class SelectFileEncryptFragment(private val user: User) : Fragment() {
     }
 
 
-    private fun uploadFile(file: Uri) {
+    private fun uploadFile(byteArray: ByteArray) {
         val filesRef: StorageReference? = storageReference.child("${user.uuid}/$fileNames")
         (activity as MainActivity).showDialog()
-        filesRef?.putFile(file)
+        filesRef?.putBytes(byteArray)
             ?.addOnSuccessListener { _ ->
                 (activity as MainActivity).hideDialog()
                 Toast.makeText(

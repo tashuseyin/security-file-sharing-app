@@ -2,7 +2,6 @@ package com.example.encryptedimagesharingapp.ui.fragment
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
@@ -15,6 +14,7 @@ import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.FragmentHomeBinding
 import com.example.encryptedimagesharingapp.ui.activities.LoginActivity
 import com.example.encryptedimagesharingapp.ui.activities.MainActivity
+import com.example.encryptedimagesharingapp.util.Util
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -94,12 +94,13 @@ class HomeFragment : Fragment() {
         if (!rootPath.exists()) {
             rootPath.mkdirs()
         }
-        val fileRef: StorageReference = storageReference.child("${auth.uid}/$name.$type")
-        val localFile = File(rootPath, "$name.$type")
+        val fileRef: StorageReference =
+            storageReference.child("${auth.uid}/$name.$type")
+        val localFile = File(rootPath, "temp$name.$type")
         fileRef.getFile(localFile)
             .addOnSuccessListener {
                 (activity as MainActivity).hideDialog()
-                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                Util.decryptFile(requireContext(), localFile, auth.uid)
                 Toast.makeText(context, "Download Successfully.", Toast.LENGTH_SHORT).show()
                 removeFile(name, type)
             }
