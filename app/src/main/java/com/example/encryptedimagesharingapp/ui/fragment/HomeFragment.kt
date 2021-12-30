@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.FragmentHomeBinding
 import com.example.encryptedimagesharingapp.ui.activities.LoginActivity
@@ -33,6 +35,7 @@ class HomeFragment : Fragment() {
     private val db = Firebase.firestore.collection("users")
     private val storage = Firebase.storage
     private val storageReference = storage.reference
+    private lateinit var key: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,15 +54,14 @@ class HomeFragment : Fragment() {
     private fun setListeners() {
         binding.apply {
             selectFile.setOnClickListener {
-                val userListFragment = UserListFragment()
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.fragment, userListFragment)?.commit()
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToUserListFragment())
                 (activity as MainActivity).hideBottomBar()
             }
-
-            deleteAccount.setOnClickListener {
-                deleteUserFireStore()
-                userDelete()
+            logout.setOnClickListener {
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
             }
             downloadSelect.setOnClickListener {
                 downloadSelect.isEnabled = false
@@ -70,24 +72,6 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun userDelete() {
-        val user = auth.currentUser!!
-        user.delete()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    startActivity(Intent(activity, LoginActivity::class.java))
-                    activity?.finish()
-                }
-            }
-    }
-
-    private fun deleteUserFireStore() {
-        db.document(auth.uid!!)
-            .delete()
-            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
-            .addOnFailureListener { Log.w(TAG, "Error deleting document", it) }
-    }
-
     private fun downloadFile(name: String, type: String) {
         val rootPath =
             File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath)
@@ -95,7 +79,7 @@ class HomeFragment : Fragment() {
             rootPath.mkdirs()
         }
         val fileRef: StorageReference =
-            storageReference.child("${auth.uid}/$name.$type")
+            storageReference.child("${auth.currentUser!!.email}/$name.$type")
         val localFile = File(rootPath, "temp$name.$type")
         fileRef.getFile(localFile)
             .addOnSuccessListener {
@@ -112,7 +96,7 @@ class HomeFragment : Fragment() {
 
 
     private fun getData() {
-        val storageReference = storage.reference.child("${auth.uid}")
+        val storageReference = storage.reference.child("${auth.currentUser!!.email}")
         (activity as MainActivity).showDialog()
         storageReference.listAll()
             .addOnSuccessListener { listResult ->
@@ -138,7 +122,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun removeFile(name: String, type: String) {
-        val storageReference = storage.reference.child("${auth.uid}/$name.$type")
+        val storageReference = storage.reference.child("${auth.currentUser!!.email}/$name.$type")
         storageReference.delete()
             .addOnSuccessListener {
                 Toast.makeText(context, "File successfully deleted.", Toast.LENGTH_SHORT).show()

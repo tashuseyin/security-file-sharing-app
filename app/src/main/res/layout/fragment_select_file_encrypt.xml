@@ -6,102 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.SelectFileEncryptFragment">
 
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/login_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_margin="8dp"
-        android:src="@drawable/ic_baseline_arrow_back_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <ImageView
-        android:id="@+id/add_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="28dp"
-        android:padding="4dp"
-        android:src="@drawable/image_add"
-        app:layout_constraintEnd_toStartOf="@+id/add_video"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Image Add"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/add_image"
-        app:layout_constraintStart_toStartOf="@+id/add_image"
-        app:layout_constraintTop_toBottomOf="@+id/add_image" />
-
-    <ImageView
-        android:id="@+id/add_video"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="28dp"
-        android:padding="4dp"
-        android:src="@drawable/video_add"
-        app:layout_constraintEnd_toStartOf="@+id/add_document"
-        app:layout_constraintStart_toEndOf="@+id/add_image"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Video Add"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/add_video"
-        app:layout_constraintStart_toStartOf="@+id/add_video"
-        app:layout_constraintTop_toBottomOf="@+id/add_video" />
-
-    <ImageView
-        android:id="@+id/add_document"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="28dp"
-        android:padding="4dp"
-        android:src="@drawable/document_add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/add_video"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Document Add"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/add_document"
-        app:layout_constraintStart_toStartOf="@+id/add_document"
-        app:layout_constraintTop_toBottomOf="@+id/add_document" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/file_constraint"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="@color/dark_gray"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/image_file"
@@ -133,14 +46,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/falling"
+            android:text="Dosya seçin.."
+            android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="Dosya seçin.." />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
@@ -189,7 +102,7 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.175"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

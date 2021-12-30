@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.encryptedimagesharingapp.ui.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_userListFragment"
+            app:destination="@id/userListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userListFragment"
+        android:name="com.example.encryptedimagesharingapp.ui.fragment.UserListFragment"
+        android:label="fragment_user_list"
+        tools:layout="@layout/fragment_user_list" >
+        <action
+            android:id="@+id/action_userListFragment_to_selectFileEncryptFragment"
+            app:destination="@id/selectFileEncryptFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectFileEncryptFragment"
+        android:name="com.example.encryptedimagesharingapp.ui.fragment.SelectFileEncryptFragment"
+        android:label="fragment_select_file_encrypt"
+        tools:layout="@layout/fragment_select_file_encrypt" >
+        <action
+            android:id="@+id/action_selectFileEncryptFragment_to_homeFragment"
+            app:destination="@id/homeFragment" >
+        </action>
+        <argument
+            android:name="userarg"
+            app:argType="com.example.encryptedimagesharingapp.model.entities.User" />
+    </fragment>
+</navigation>

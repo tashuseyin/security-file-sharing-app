@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.encryptedimagesharingapp.R
 import com.example.encryptedimagesharingapp.databinding.FragmentUserListBinding
 import com.example.encryptedimagesharingapp.model.entities.User
@@ -36,9 +37,7 @@ class UserListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = UserAdapter { user ->
-            val selectFileEncryptFragment = SelectFileEncryptFragment(user)
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment, selectFileEncryptFragment)?.commit()
+            findNavController().navigate(UserListFragmentDirections.actionUserListFragmentToSelectFileEncryptFragment(user))
             (activity as MainActivity).hideBottomBar()
         }
         binding.recyclerView.adapter = adapter

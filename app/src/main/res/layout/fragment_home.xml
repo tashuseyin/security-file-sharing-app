@@ -8,11 +8,11 @@
 
 
     <ImageView
-        android:id="@+id/delete_account"
+        android:id="@+id/logout"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_margin="12dp"
-        android:src="@drawable/deleteaccount"
+        android:src="@drawable/ic_baseline_login_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
